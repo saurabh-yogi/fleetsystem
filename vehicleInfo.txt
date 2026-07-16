@@ -1,0 +1,1 @@
+vehicle: RJ12CN3344  | Driver: guruji | status: running

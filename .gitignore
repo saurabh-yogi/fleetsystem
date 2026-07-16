@@ -1,0 +1,7 @@
+fleet-backend/node_modules/
+fleet-frontend/node_modules/
+
+fleet-backend/.env
+fleet-frontend/.env
+dist/
+build/
