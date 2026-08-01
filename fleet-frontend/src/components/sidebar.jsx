@@ -1,24 +1,26 @@
+import { useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Truck, Users, Route, Fuel, Wrench, Bell, FileText, MapPin, Map, FolderOpen, Settings } from 'lucide-react';
-import { useState } from 'react';
+import { use, useState } from 'react';
 
 
 function Sidebar(){
   const [activeItem, setActiveItem] = useState("Dashboard");
+  const navigate = useNavigate();
 
 
   const menuItems = [
-   { name: "Dashboard", icon: LayoutDashboard},
-   { name: "Vehicles", icon: Truck},
-   {name: "Drivers", icon: Users},
-   {name: "Trips", icon: Route},
-   {name: "Fuel & Expenses", icon: Fuel},
-   {name: "Maintenance", icon: Wrench},
-   {name: "Alerts", icon: Bell},
-   {name: "Reports", icon: FileText},
-   {name: "Live Tracking", icon: MapPin},
-   {name: "Geofence", icon: Map},
-   {name: "Documents", icon: FolderOpen},
-   {name: "Settings", icon: Settings},
+   { name: "Dashboard", icon: LayoutDashboard, path:"/"},
+   { name: "Vehicles", icon: Truck, path:"/vehicles"},
+   {name: "Drivers", icon: Users, path:"/drivers"},
+   {name: "Trips", icon: Route, path:"/trips"},
+   {name: "Fuel & Expenses", icon: Fuel, path:"/fuel"},
+   {name: "Maintenance", icon: Wrench, path:"/maintenance"},
+   {name: "Alerts", icon: Bell, path:"/alerts"},
+   {name: "Reports", icon: FileText, path:"/reports"},
+   {name: "Live Tracking", icon: MapPin, path:"/tracking"},
+   {name: "Geofence", icon: Map, path:"/geofence"},
+   {name: "Documents", icon: FolderOpen, path:"/documents"},
+   {name: "Settings", icon: Settings, path:"/settings"},
   ];
 
   return (
@@ -30,7 +32,7 @@ function Sidebar(){
           const isActive = activeItem === item.name;
           return (
           <li key={item.name}
-          onClick={() => setActiveItem(item.name)}
+          onClick={() => {setActiveItem(item.name); navigate(item.path);}}
           className={`flex items-center gap-3px-4 py-3  cursor-pointer ${
             isActive ? 'bg-blue-600' : 'hover:bg-slate-800'
           }`}   >
