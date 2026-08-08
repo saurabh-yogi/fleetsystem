@@ -24,7 +24,7 @@ function Geofence() {
     }
     setLoading(false);
   };
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { fetchGeofences(); }, []);
 
   const handleAdd = async () => {
