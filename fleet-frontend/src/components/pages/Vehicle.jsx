@@ -18,7 +18,7 @@ function Vehicles() {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await response.json();
-      setVehicles(data);
+      setVehicles(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -30,6 +30,7 @@ function Vehicles() {
   const handleAdd = async () => {
     try {
       const token = localStorage.getItem('token');
+      console.log('Token:', token);
       await fetch('https://fleet-backened.onrender.com/api/vehicles', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
