@@ -18,7 +18,7 @@ import Register from './components/pages/Register';
 
 function Layout() {
   const location = useLocation();
-  const isLogin = location.pathname === '/login';
+  const isLogin = location.pathname === '/login' || location.pathname === '/register';
 
   return (
     <div className="flex">

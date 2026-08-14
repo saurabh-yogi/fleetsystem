@@ -1,5 +1,6 @@
 import Navbar from '../Navbar';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
+import { TrendingUp, TrendingDown, DollarSign, Route } from 'lucide-react';
 
 function Reports() {
   const monthlyRevenue = [
@@ -21,58 +22,66 @@ function Reports() {
   ];
 
   const summaryCards = [
-    { title: "Total Revenue (6 months)", value: "₹3,56,500", color: "text-green-600" },
-    { title: "Total Expense (6 months)", value: "₹1,85,450", color: "text-red-500" },
-    { title: "Total Profit (6 months)", value: "₹1,71,050", color: "text-blue-600" },
-    { title: "Total Trips (6 months)", value: "356", color: "text-purple-600" },
+    { title: "Total Revenue", value: "₹3,56,500", change: "+18%", positive: true, icon: TrendingUp, color: "from-green-500 to-green-600" },
+    { title: "Total Expense", value: "₹1,85,450", change: "+5%", positive: false, icon: TrendingDown, color: "from-red-500 to-red-600" },
+    { title: "Total Profit", value: "₹1,71,050", change: "+32%", positive: true, icon: DollarSign, color: "from-blue-500 to-blue-600" },
+    { title: "Total Trips", value: "356", change: "+12%", positive: true, icon: Route, color: "from-purple-500 to-purple-600" },
   ];
 
   return (
     <div className="flex-1 flex flex-col bg-gray-50 min-h-screen">
       <Navbar />
       <div className="p-6">
-        <h2 className="text-xl font-bold text-gray-800 mb-4">Reports</h2>
-
-        {/* Summary Cards */}
-        <div className="grid grid-cols-4 gap-4 mb-6">
-          {summaryCards.map((card) => (
-            <div key={card.title} className="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
-              <p className="text-sm text-gray-500">{card.title}</p>
-              <p className={`text-2xl font-bold mt-1 ${card.color}`}>{card.value}</p>
-            </div>
-          ))}
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-gray-900">Reports</h2>
+          <p className="text-gray-500 text-sm">6 months analytics overview</p>
         </div>
 
-        {/* Charts */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-4 gap-4 mb-6">
+          {summaryCards.map((card) => {
+            const Icon = card.icon;
+            return (
+              <div key={card.title} className={`bg-gradient-to-br ${card.color} p-5 rounded-2xl shadow-lg`}>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="bg-white bg-opacity-20 p-2 rounded-xl">
+                    <Icon size={20} className="text-white" />
+                  </div>
+                  <span className="text-white text-opacity-80 text-xs font-medium bg-white bg-opacity-20 px-2 py-1 rounded-full">{card.change}</span>
+                </div>
+                <p className="text-white text-opacity-80 text-sm">{card.title}</p>
+                <p className="text-white text-2xl font-bold mt-1">{card.value}</p>
+              </div>
+            );
+          })}
+        </div>
 
-          {/* Revenue vs Expense */}
-          <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
-            <h3 className="font-bold text-gray-800 mb-4">Revenue vs Expense (6 Months)</h3>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+            <h3 className="font-bold text-gray-900 mb-1">Revenue vs Expense</h3>
+            <p className="text-gray-500 text-xs mb-4">Last 6 months comparison</p>
             <ResponsiveContainer width="100%" height={250}>
               <BarChart data={monthlyRevenue}>
-                <XAxis dataKey="month" tick={{ fontSize: 12 }} />
-                <YAxis tick={{ fontSize: 12 }} />
+                <XAxis dataKey="month" tick={{ fontSize: 11 }} />
+                <YAxis tick={{ fontSize: 11 }} />
                 <Tooltip />
-                <Bar dataKey="revenue" fill="#22c55e" name="Revenue" radius={[4,4,0,0]} />
-                <Bar dataKey="expense" fill="#ef4444" name="Expense" radius={[4,4,0,0]} />
+                <Bar dataKey="revenue" fill="#22c55e" name="Revenue" radius={[6,6,0,0]} />
+                <Bar dataKey="expense" fill="#ef4444" name="Expense" radius={[6,6,0,0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
 
-          {/* Trip Trend */}
-          <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
-            <h3 className="font-bold text-gray-800 mb-4">Trip Trend (6 Months)</h3>
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+            <h3 className="font-bold text-gray-900 mb-1">Trip Trend</h3>
+            <p className="text-gray-500 text-xs mb-4">Monthly trip count</p>
             <ResponsiveContainer width="100%" height={250}>
               <LineChart data={tripStats}>
-                <XAxis dataKey="month" tick={{ fontSize: 12 }} />
-                <YAxis tick={{ fontSize: 12 }} />
+                <XAxis dataKey="month" tick={{ fontSize: 11 }} />
+                <YAxis tick={{ fontSize: 11 }} />
                 <Tooltip />
-                <Line type="monotone" dataKey="trips" stroke="#6366f1" strokeWidth={2} dot={{ fill: '#6366f1' }} />
+                <Line type="monotone" dataKey="trips" stroke="#6366f1" strokeWidth={2.5} dot={{ fill: '#6366f1', r: 4 }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
-
         </div>
       </div>
     </div>
