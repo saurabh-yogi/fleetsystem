@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Navbar from '../Navbar';
-import { Plus, Search, X, Users } from 'lucide-react';
+import { Plus, Search, X,  } from 'lucide-react';
 
 function Drivers() {
   const [search, setSearch] = useState('');
